@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "monitor")
 @Getter
@@ -18,4 +20,9 @@ public class Monitor extends ProductEntity {
     @NotNull
     @Column(name = "diagonal", nullable = false)
     private Double diagonal;
+
+    public Monitor(UUID id, String manufacture, String series, @NotNull Integer price, @NotNull Integer amount, @NotNull Double diagonal) {
+        super(id, manufacture, series, price, amount, ProductType.MONITOR);
+        this.diagonal = diagonal;
+    }
 }

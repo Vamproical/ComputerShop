@@ -15,8 +15,8 @@ spring:
         jdbc.batch_size: 20
   datasource:
     # ImMemory
-    url: jdbc:h2:mem:voting
-    #    tcp: jdbc:h2:tcp://localhost:9092/mem:voting
+    url: jdbc:h2:mem:shop
+    #    tcp: jdbc:h2:tcp://localhost:9092/mem:shop
     username: sa
     password:
 
