@@ -12,7 +12,7 @@ import lombok.Setter;
 import java.util.UUID;
 
 @Entity
-@Table(name = "laptop")
+@Table(name = "hard_disk")
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

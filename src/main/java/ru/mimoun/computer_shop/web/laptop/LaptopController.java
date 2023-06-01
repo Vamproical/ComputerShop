@@ -10,8 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.mimoun.computer_shop.model.Laptop;
+import ru.mimoun.computer_shop.model.LaptopSizeType;
 import ru.mimoun.computer_shop.repository.LaptopRepository;
 import ru.mimoun.computer_shop.to.LaptopTo;
+import ru.mimoun.computer_shop.util.LaptopSizeUtil;
 import ru.mimoun.computer_shop.util.validation.ValidationUtil;
 
 import java.net.URI;
@@ -43,9 +45,10 @@ public class LaptopController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Laptop> createWithLocation(@Valid @RequestBody LaptopTo laptop) {
         ValidationUtil.checkNew(laptop);
+        LaptopSizeType size = LaptopSizeUtil.getSize(laptop.getSize(), "Laptop with size=" + laptop.getSize() + "cannot be created");
         Laptop toSave = new Laptop(null, laptop.getManufacture(),
                                    laptop.getSeries(), laptop.getPrice(),
-                                   laptop.getAmount(), laptop.getSize());
+                                   laptop.getAmount(), size);
         Laptop created = laptopRepository.save(toSave);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -59,9 +62,10 @@ public class LaptopController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@Valid @RequestBody LaptopTo laptop, @PathVariable UUID id) {
         ValidationUtil.assureIdConsistent(laptop, id);
+        LaptopSizeType size = LaptopSizeUtil.getSize(laptop.getSize(), "Laptop with size=" + laptop.getSize() + "cannot be updated");
         Laptop toSave = new Laptop(id, laptop.getManufacture(),
                                    laptop.getSeries(), laptop.getPrice(),
-                                   laptop.getAmount(), laptop.getSize());
+                                   laptop.getAmount(), size);
         laptopRepository.save(toSave);
     }
 }
