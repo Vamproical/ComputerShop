@@ -4,6 +4,8 @@ import lombok.experimental.UtilityClass;
 import ru.mimoun.computer_shop.HasId;
 import ru.mimoun.computer_shop.error.IllegalRequestDataException;
 
+import java.util.UUID;
+
 @UtilityClass
 public class ValidationUtil {
 
@@ -14,7 +16,7 @@ public class ValidationUtil {
     }
 
     //  Conservative when you reply, but accept liberally (http://stackoverflow.com/a/32728226/548473)
-    public static void assureIdConsistent(HasId bean, int id) {
+    public static void assureIdConsistent(HasId bean, UUID id) {
         if (bean.isNew()) {
             bean.setId(id);
         } else if (bean.id() != id) {
