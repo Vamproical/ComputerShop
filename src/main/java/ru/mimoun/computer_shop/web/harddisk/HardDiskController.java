@@ -1,4 +1,4 @@
-package ru.mimoun.computer_shop.web.hard_disk;
+package ru.mimoun.computer_shop.web.harddisk;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -18,7 +18,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
-import static ru.mimoun.computer_shop.web.hard_disk.HardDiskController.REST_URL;
+import static ru.mimoun.computer_shop.web.harddisk.HardDiskController.REST_URL;
 
 
 @RestController

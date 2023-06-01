@@ -1,13 +1,13 @@
-package ru.mimoun.computer_shop.web.computer;
+package ru.mimoun.computer_shop.web.laptop;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import ru.mimoun.computer_shop.model.Computer;
-import ru.mimoun.computer_shop.repository.ComputerRepository;
-import ru.mimoun.computer_shop.to.ComputerTo;
+import ru.mimoun.computer_shop.model.Laptop;
+import ru.mimoun.computer_shop.repository.LaptopRepository;
+import ru.mimoun.computer_shop.to.LaptopTo;
 import ru.mimoun.computer_shop.util.JsonUtil;
 import ru.mimoun.computer_shop.web.AbstractControllerTest;
 
@@ -16,22 +16,22 @@ import java.util.UUID;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ru.mimoun.computer_shop.web.computer.ComputerController.REST_URL;
-import static ru.mimoun.computer_shop.web.computer.ComputerTestData.*;
+import static ru.mimoun.computer_shop.web.laptop.LaptopController.REST_URL;
+import static ru.mimoun.computer_shop.web.laptop.LaptopTestData.*;
 
-class ComputerControllerTest extends AbstractControllerTest {
+class LaptopControllerTest extends AbstractControllerTest {
     private static final String REST_URL_SLASH = REST_URL + '/';
 
     @Autowired
-    private ComputerRepository computerRepository;
+    private LaptopRepository laptopRepository;
 
     @Test
     void get() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL_SLASH + COMPUTER_1_ID))
+        perform(MockMvcRequestBuilders.get(REST_URL_SLASH + LAPTOP_1_ID))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(COMPUTER_MATCHER.contentJson(computer1));
+                .andExpect(LAPTOP_MATCHER.contentJson(laptop1));
     }
 
     @Test
@@ -43,28 +43,28 @@ class ComputerControllerTest extends AbstractControllerTest {
 
     @Test
     void update() throws Exception {
-        ComputerTo updated = getUpdatedTo();
-        perform(MockMvcRequestBuilders.put(REST_URL_SLASH + COMPUTER_1_ID)
+        LaptopTo updated = getUpdatedTo();
+        perform(MockMvcRequestBuilders.put(REST_URL_SLASH + LAPTOP_1_ID)
                                       .contentType(MediaType.APPLICATION_JSON)
                                       .content(JsonUtil.writeValue(updated)))
                 .andDo(print())
                 .andExpect(status().isNoContent());
 
-        COMPUTER_MATCHER.assertMatch(computerRepository.getExisted(COMPUTER_1_ID), getUpdated());
+        LAPTOP_MATCHER.assertMatch(laptopRepository.getExisted(LAPTOP_1_ID), getUpdated());
     }
 
     @Test
     void createWithLocation() throws Exception {
-        ComputerTo newComputer = getNew();
+        LaptopTo newComputer = getNew();
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
                                                              .contentType(MediaType.APPLICATION_JSON)
                                                              .content(JsonUtil.writeValue(newComputer)))
                 .andExpect(status().isCreated());
 
-        Computer created = COMPUTER_MATCHER.readFromJson(action);
+        Laptop created = LAPTOP_MATCHER.readFromJson(action);
         UUID newId = created.id();
         newComputer.setId(newId);
-        COMPUTER_MATCHER.assertMatch(computerRepository.getExisted(newId), created);
+        LAPTOP_MATCHER.assertMatch(laptopRepository.getExisted(newId), created);
     }
 
     @Test
@@ -72,6 +72,6 @@ class ComputerControllerTest extends AbstractControllerTest {
         perform(MockMvcRequestBuilders.get(REST_URL))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(COMPUTER_MATCHER.contentJson(computer1, computer2));
+                .andExpect(LAPTOP_MATCHER.contentJson(laptop1, laptop2));
     }
 }
