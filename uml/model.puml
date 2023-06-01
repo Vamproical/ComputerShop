@@ -1,0 +1,59 @@
+@startuml
+
+package Product {
+
+    entity Product {
+        UUID id
+        String series
+        String manufacture
+        Integer price
+        Integer amount
+        ProductType type
+    }
+
+    enum ProductType {
+        PC
+        Laptop
+        HDD
+        Monitor
+    }
+
+    entity PC {
+        PcType type
+    }
+
+    enum PcType {
+        Desktop
+        Nettop
+        Monoblock
+    }
+
+    entity Laptop {
+        LaptopSize size
+    }
+
+    enum LaptopSize {
+        13
+        14
+        15
+        17
+    }
+
+    entity Monitor {
+        String diagonal
+    }
+
+    entity HDD {
+        Integer volume
+    }
+
+    Product ..> PC
+    Product ..> HDD
+    Product ..> Laptop
+    Product ..> Monitor
+    Product --> ProductType
+    PC --> PcType
+    Laptop --> LaptopSize
+}
+
+@enduml

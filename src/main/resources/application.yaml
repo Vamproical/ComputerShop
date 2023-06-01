@@ -1,4 +1,3 @@
-#  https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 spring:
   jpa:
     show-sql: true
@@ -29,15 +28,11 @@ spring:
       setter: none
       is-getter: none
 
-  # https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html#common-application-properties-cache
-  cache:
-    cache-names: users
-    caffeine.spec: maximumSize=1,expireAfterAccess=60s
 
 logging:
   level:
     root: WARN
-    ru.javaops.topjava2: DEBUG
+    ru.mimoun.computer_shop: DEBUG
     org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver: DEBUG
 
 server.servlet:
